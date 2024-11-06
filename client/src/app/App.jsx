@@ -1,10 +1,12 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import clsx from "clsx"
 import { ScrollMenu } from "react-horizontal-scrolling-menu"
 
 function App() {
   return (
     <main className="p-4 min-h-dvh">
       <ScrollMenu>
-        <p className="text-2xl">HEllo world</p>
+        <TaskListContainer titleClassName="bg-red-500" />
       </ScrollMenu>
     </main>
   )
@@ -44,3 +46,19 @@ export default App
 //   "files": [],
 //   "__v": 0
 // }
+
+function TaskListContainer({ tasks, titleClassName, contentClassName }) {
+  return (
+    <div className="w-96 bg-card-background text-card-foreground shadow">
+      <div className="flex items-center gap-2 px-3 py-4">
+        <div className="size-6 rounded-l-full bg-accent"></div>
+        <h5 className="text-lg">Incomplete</h5>
+        <h5 className="min-w-8 grid place-items-center rounded-md aspect-square ms-auto">
+          0
+        </h5>
+      </div>
+
+      <ul className="flex flex-row h-max overflow-y-scroll gap-3 px-2"></ul>
+    </div>
+  )
+}

@@ -12,7 +12,7 @@ const config = {
   theme: {
     extend: {
       container: {
-        center: true,
+        center: 'true',
         padding: '1.5rem',
         screens: {
           sm: '100%',
@@ -21,10 +21,6 @@ const config = {
           xl: '1200px'
         }
       },
-      // fontFamily: {
-      // 	sans: ["var(--font-geist-sans)", ...fontFamily.sans],
-      // 	mono: ["var(--font-geist-mono)", ...fontFamily.mono]
-      // },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
@@ -64,7 +60,7 @@ const config = {
           '2': 'hsl(var(--chart-2))',
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
+          '5': 'hsl(var(--chart-5))'
         }
       },
       borderRadius: {
