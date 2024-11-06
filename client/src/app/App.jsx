@@ -1,3 +1,4 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import clsx from "clsx"
 import { ScrollMenu } from "react-horizontal-scrolling-menu"
@@ -49,7 +50,7 @@ export default App
 
 function TaskListContainer({ tasks, titleClassName, contentClassName }) {
   return (
-    <div className="w-96 bg-card-background text-card-foreground shadow">
+    <div className="w-96 bg-card text-card-foreground shadow">
       <div className="flex items-center gap-2 px-3 py-4">
         <div className="size-6 rounded-l-full bg-accent"></div>
         <h5 className="text-lg">Incomplete</h5>
@@ -58,7 +59,75 @@ function TaskListContainer({ tasks, titleClassName, contentClassName }) {
         </h5>
       </div>
 
-      <ul className="flex flex-row h-max overflow-y-scroll gap-3 px-2"></ul>
+      <ul className="flex flex-row h-max overflow-y-scroll gap-3 px-2">
+        <div className="w-full bg-background rounded-md">
+          <div className="flex p-2 items-center gap-2 *:flex-initial justify-between">
+            <div className="flex items-center gap-1 text-sm truncate">
+              <Avatar>
+                <AvatarImage src="images/handsome-bearded-guy-posing-against-white-wall.jpg" />
+                <AvatarFallback>AN</AvatarFallback>
+              </Avatar>
+              <h6>Client Name</h6>
+            </div>
+
+            <div className="flex items-center gap-1 text-sm truncate">
+              <Avatar>
+                <AvatarImage src="images/young-bearded-man-with-striped-shirt.jpg" />
+                <AvatarFallback>AN</AvatarFallback>
+              </Avatar>
+              <h6>Assignee Name</h6>
+            </div>
+          </div>
+
+          <div className="task">
+            <ion-icon name="layers-outline"></ion-icon>
+            <p>
+              Lorem ipsum dolor, sit amet consectetur adipisicing elit. Officia
+              cum libero, sit accusamus fugit repellendus dicta voluptatum
+              voluptatem quos voluptatibus exercitationem atque id expedita sed
+              quam aut fuga rerum.
+            </p>
+          </div>
+
+          <div className="completed-counter ms-auto">
+            <small className="completed-counter_card">
+              <ion-icon name="clipboard-outline"></ion-icon>
+              <p>1 / 3</p>
+            </small>
+          </div>
+
+          <div className="attested-by">
+            <img
+              src="images/young-bearded-man-with-striped-shirt.jpg"
+              alt=""
+            />
+            <img
+              src="images/young-bearded-man-with-striped-shirt.jpg"
+              alt=""
+            />
+            <small className="show-more rounded-circle"> 12+ </small>
+          </div>
+
+          <div className="comments">
+            <button>
+              <ion-icon name="chatbubbles-outline"></ion-icon>
+              <span>12</span>
+            </button>
+          </div>
+
+          <div className="attachments">
+            <button>
+              <ion-icon name="document-attach-outline"></ion-icon>
+              <span>22</span>
+            </button>
+          </div>
+
+          <div className="date-of-issuance">
+            <ion-icon name="calendar-number-outline"></ion-icon>
+            <small className="date">09-12-2023</small>
+          </div>
+        </div>
+      </ul>
     </div>
   )
 }
