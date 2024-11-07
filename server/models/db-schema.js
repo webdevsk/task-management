@@ -2,6 +2,18 @@ const mongoose = require("mongoose")
 
 // Schema Definitions
 
+const mapId = {
+    toJSON: {
+        virtuals: true,
+        transform: function (doc, ret) {
+            ret.id = ret._id
+            delete ret._id
+            delete ret.__v
+            return ret
+        }
+    }
+}
+
 const FileSchema = new mongoose.Schema({
     filename: String,
     originalname: String,
@@ -16,14 +28,14 @@ const FileSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
-})
+}, mapId)
 
 const UserSchema = new mongoose.Schema({
     name: String,
     imageUrl: String,
     role: String,
     email: String
-})
+}, mapId)
 
 const TaskSchema = new mongoose.Schema({
     title: String,
@@ -68,7 +80,7 @@ const TaskSchema = new mongoose.Schema({
         default: 'Medium'
     },
     files: [FileSchema],
-})
+}, mapId)
 
 
 
