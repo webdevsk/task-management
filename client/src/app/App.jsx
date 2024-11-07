@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog"
 import useSWR from "swr"
 import UploadFiles from "@/components/UploadFiles"
+import { Toaster } from "@/components/ui/sonner"
 
 function App() {
   const [activeTask, setActiveTask] = useState(null)
@@ -73,80 +74,83 @@ function App() {
   }
 
   return (
-    <main className="">
-      <section className="p-4 h-dvh">
-        <div className="container">
-          <ScrollMenu>
-            <div className="flex gap-4 flex-nowrap items-stretch *:shrink-0">
-              {taskGroupEnums.map(taskGroup => (
-                <div
-                  key={taskGroup}
-                  style={{
-                    "--accent": {
-                      incomplete: "#d21010",
-                      "to do": "#ffe700",
-                      doing: "yellow",
-                      "under review": "orange",
-                      completed: "green"
-                    }[taskGroup.toLowerCase()]
-                  }}
-                  className="w-[350px] bg-card text-card-foreground shadow"
-                >
-                  <div className="flex items-center gap-2 px-3 py-4">
-                    <div className="size-6 rounded-l-full bg-[var(--accent)]"></div>
-                    <h5 className="text-lg">{taskGroup}</h5>
-                    <h5 className="min-w-8 grid place-items-center rounded-md aspect-square ms-auto">
-                      0
-                    </h5>
+    <>
+      <main className="">
+        <section className="p-4 h-dvh">
+          <div className="container">
+            <ScrollMenu>
+              <div className="flex gap-4 flex-nowrap items-stretch *:shrink-0">
+                {taskGroupEnums.map(taskGroup => (
+                  <div
+                    key={taskGroup}
+                    style={{
+                      "--accent": {
+                        incomplete: "#d21010",
+                        "to do": "#ffe700",
+                        doing: "yellow",
+                        "under review": "orange",
+                        completed: "green"
+                      }[taskGroup.toLowerCase()]
+                    }}
+                    className="w-[350px] bg-card text-card-foreground shadow"
+                  >
+                    <div className="flex items-center gap-2 px-3 py-4">
+                      <div className="size-6 rounded-l-full bg-[var(--accent)]"></div>
+                      <h5 className="text-lg">{taskGroup}</h5>
+                      <h5 className="min-w-8 grid place-items-center rounded-md aspect-square ms-auto">
+                        0
+                      </h5>
+                    </div>
+                    <ul className="flex flex-col h-full pb-2 overflow-y-scroll gap-3 px-2">
+                      {taskGroups[taskGroup].map(task => (
+                        <TaskCard
+                          key={task.id}
+                          task={task}
+                          activeTask={activeTask}
+                          setActiveTask={setActiveTask}
+                        />
+                      ))}
+                    </ul>
                   </div>
-                  <ul className="flex flex-col h-full pb-2 overflow-y-scroll gap-3 px-2">
-                    {taskGroups[taskGroup].map(task => (
-                      <TaskCard
-                        key={task.id}
-                        task={task}
-                        activeTask={activeTask}
-                        setActiveTask={setActiveTask}
-                      />
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </ScrollMenu>
-        </div>
-      </section>
-
-      {/* Dialog */}
-      <Dialog
-        open={!!activeTask}
-        onOpenChange={bool => setActiveTask(task => (bool ? task : null))}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Attachments</DialogTitle>
-          </DialogHeader>
-          <div className="flex flex-col gap-1">
-            {activeTask?.attachments.length || (
-              <p className="text-center text-xl p-4 text-gray-600">
-                No attchments
-              </p>
-            )}
-            {!!activeTask?.attachments.length &&
-              activeTask.attachments.map(file => (
-                <div
-                  key={file.fileName}
-                  className="rounded-md bg-muted flex gap-2 px-2 py-2"
-                >
-                  <h4 className="truncate shrink-1 text-base">
-                    {file.originalName}
-                  </h4>
-                </div>
-              ))}
-            <UploadFiles id={activeTask?.id} />
+                ))}
+              </div>
+            </ScrollMenu>
           </div>
-        </DialogContent>
-      </Dialog>
-    </main>
+        </section>
+
+        {/* Dialog */}
+        <Dialog
+          open={!!activeTask}
+          onOpenChange={bool => setActiveTask(task => (bool ? task : null))}
+        >
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Attachments</DialogTitle>
+            </DialogHeader>
+            <div className="flex flex-col gap-1">
+              {activeTask?.attachments.length || (
+                <p className="text-center text-xl p-4 text-gray-600">
+                  No attchments
+                </p>
+              )}
+              {!!activeTask?.attachments.length &&
+                activeTask.attachments.map(file => (
+                  <div
+                    key={file.fileName}
+                    className="rounded-md bg-muted flex gap-2 px-2 py-2"
+                  >
+                    <h4 className="truncate shrink-1 text-base">
+                      {file.originalName}
+                    </h4>
+                  </div>
+                ))}
+              <UploadFiles id={activeTask?.id} />
+            </div>
+          </DialogContent>
+        </Dialog>
+      </main>
+      <Toaster />
+    </>
   )
 }
 export default App

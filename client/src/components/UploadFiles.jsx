@@ -1,12 +1,12 @@
-import { allowedTypes, fileSizeLimit } from "@/data/data"
+import { allowedTypes } from "@/data/data"
 import { postAttachments } from "@/server/api"
-import { memo, useState } from "react"
+import { memo } from "react"
 import { FaUpload } from "react-icons/fa6"
-import { HiPhoto } from "react-icons/hi2"
-import useSWR, { useSWRConfig } from "swr"
+import { toast } from "sonner"
+import { useSWRConfig } from "swr"
 
 const UploadFiles = memo(({ id }) => {
-  const mutate = useSWRConfig()
+  const { mutate } = useSWRConfig()
 
   const handleFileChange = event => {
     // setFiles(event.target.files)
@@ -18,9 +18,18 @@ const UploadFiles = memo(({ id }) => {
     for (const file of fileList) {
       formData.append("files", file) // Adjust 'files' to match your backend API's expected parameter name
     }
-    console.log(formData)
-    const res = await postAttachments(id, formData)
-    console.log(res)
+
+    toast.promise(() => postAttachments(id, formData), {
+      loading: "Uploading files...",
+      success: data => {
+        mutate("/api/tasks")
+        return data.message
+      },
+      error: error => {
+        console.error(error)
+        return error
+      }
+    })
   }
 
   return (
