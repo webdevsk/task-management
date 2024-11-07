@@ -17,6 +17,9 @@ fs.mkdir(uploadsDir, { recursive: true }).catch(console.error)
 
 const app = express()
 
+app.use(cors({
+    origin: 'https://task-management-1-jtjk.onrender.com/'
+}))
 
 // Middleware
 app.use(cors())
