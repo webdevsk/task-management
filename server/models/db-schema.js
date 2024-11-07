@@ -57,10 +57,6 @@ const TaskSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }],
-    progress: {
-        current: Number,
-        total: Number
-    },
     commentsCount: Number,
     timeEstimate: Number,
     points: Number,
