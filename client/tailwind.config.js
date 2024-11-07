@@ -13,12 +13,13 @@ const config = {
     extend: {
       container: {
         center: 'true',
-        padding: '1.5rem',
+        padding: '1rem',
         screens: {
           sm: '100%',
           md: '100%',
           lg: '100%',
-          xl: '1200px'
+          xl: '100%',
+          '2xl': '1400px'
         }
       },
       colors: {
