@@ -1,11 +1,11 @@
 import { getAllTasks } from "@/server/api"
 import { useMemo, useState } from "react"
-import { ScrollMenu } from "react-horizontal-scrolling-menu"
 
 import useSWR from "swr"
 import { Toaster } from "@/components/ui/sonner"
 import { FilesDialog } from "@/components/FilesDialog"
 import { TaskCard } from "@/components/TaskCard"
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area"
 
 function App() {
   const {
@@ -60,10 +60,13 @@ function App() {
   return (
     <>
       <main className="">
-        <section className="p-4 h-dvh">
+        <section className="py-4 h-dvh flex flex-row">
           <div className="container">
-            <ScrollMenu>
-              <div className="flex gap-4 flex-nowrap items-stretch *:shrink-0">
+            <ScrollArea
+              type="auto"
+              className="size-full whitespace-nowrap "
+            >
+              <div className="flex space-x-4 h-full items-stretch *:shrink-0">
                 {taskGroupEnums.map(taskGroup => (
                   <div
                     key={taskGroup}
@@ -85,7 +88,7 @@ function App() {
                         0
                       </h5>
                     </div>
-                    <ul className="flex flex-col h-full pb-2 overflow-y-auto gap-3 px-2">
+                    <ul className="flex flex-col pb-2 overflow-y-auto gap-3 px-2">
                       {taskGroups[taskGroup].map(task => (
                         <TaskCard
                           key={task.id}
@@ -97,7 +100,11 @@ function App() {
                   </div>
                 ))}
               </div>
-            </ScrollMenu>
+              <ScrollBar
+                className="bg-secondary"
+                orientation="horizontal"
+              />
+            </ScrollArea>
           </div>
         </section>
 

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
@@ -15,8 +15,8 @@
   border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #037dce;
-}
+  background-color: hsl(204, 97%, 41%);
+} */
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -39,7 +39,7 @@ body {
     --card-foreground: 0 0% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
+    --primary: 204, 97%, 41%;
     --primary-foreground: 0 0% 98%;
     /* --secondary: 0 0% 96.1%; */
     --secondary: 210, 5%, 84%;
@@ -52,7 +52,8 @@ body {
     --accent-foreground: 0 0% 9%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
+    /* --border: 0 0% 89.8%; */
+    --border: 204, 97%, 41%;
     --input: 0 0% 89.8%;
     --ring: 0 0% 3.9%;
     --chart-1: 12 76% 61%;
@@ -98,4 +99,3 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
