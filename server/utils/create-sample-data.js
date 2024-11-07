@@ -75,7 +75,15 @@ async function createSampleData({ force = false }) {
                 imageUrl: null,
                 role: 'qa',
                 email: 'emma@team.com'
-            }
+            },
+            { name: "John Doe", role: "client", email: "john.doe@example.com" },
+            { name: "Alice Smith", imageUrl: null, role: "designer", email: "alice.smith@example.com" },
+            { name: "Sadik Khan", imageUrl: null, role: "developer", email: "sadik.khan@example.com" },
+            { name: "Rachel Green", imageUrl: null, role: "manager", email: "rachel.green@example.com" },
+            { name: "Michael Scott", imageUrl: null, role: "client", email: "michael.scott@example.com" },
+            { name: "Jim Halpert", imageUrl: null, role: "developer", email: "jim.halpert@example.com" },
+            { name: "Pam Beesly", imageUrl: null, role: "designer", email: "pam.beesly@example.com" },
+            { name: "Dwight Schrute", imageUrl: null, role: "manager", email: "dwight.schrute@example.com" }
         ])
 
         // Destructure users for easier reference
@@ -90,28 +98,6 @@ async function createSampleData({ force = false }) {
                 client: johnClient._id,
                 assignee: alice._id,
                 collaborators: [sadik._id],
-                todos: [
-                    {
-                        title: 'Create wireframes',
-                        description: 'Design initial wireframes for homepage',
-                        isCompleted: true,
-                        assignee: alice._id,
-                        completedAt: new Date('2024-11-01')
-                    },
-                    {
-                        title: 'Design hero section',
-                        description: 'Create visual design for hero section',
-                        isCompleted: true,
-                        assignee: alice._id,
-                        completedAt: new Date('2024-11-03')
-                    },
-                    {
-                        title: 'Implement responsive design',
-                        description: 'Ensure design works on all devices',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    }
-                ],
                 commentsCount: 8,
                 timeEstimate: 20,
                 points: 13,
@@ -124,26 +110,6 @@ async function createSampleData({ force = false }) {
                 client: sarahClient._id,
                 assignee: sadik._id,
                 collaborators: [mike._id],
-                todos: [
-                    {
-                        title: 'Setup OAuth providers',
-                        isCompleted: true,
-                        assignee: sadik._id,
-                        completedAt: new Date('2024-10-15')
-                    },
-                    {
-                        title: 'Implement login flow',
-                        isCompleted: true,
-                        assignee: sadik._id,
-                        completedAt: new Date('2024-10-20')
-                    },
-                    {
-                        title: 'Add password reset functionality',
-                        isCompleted: true,
-                        assignee: mike._id,
-                        completedAt: new Date('2024-10-25')
-                    }
-                ],
                 commentsCount: 15,
                 timeEstimate: 40,
                 points: 21,
@@ -156,31 +122,6 @@ async function createSampleData({ force = false }) {
                 client: davidClient._id,
                 assignee: emma._id,
                 collaborators: [mike._id],
-                todos: [
-                    {
-                        title: 'Create test cases',
-                        isCompleted: true,
-                        assignee: emma._id,
-                        completedAt: new Date('2024-11-02')
-                    },
-                    {
-                        title: 'Perform functional testing',
-                        isCompleted: true,
-                        assignee: emma._id,
-                        completedAt: new Date('2024-11-04')
-                    },
-                    {
-                        title: 'Cross-device testing',
-                        isCompleted: true,
-                        assignee: emma._id,
-                        completedAt: new Date('2024-11-05')
-                    },
-                    {
-                        title: 'Write test report',
-                        isCompleted: false,
-                        assignee: emma._id
-                    }
-                ],
                 commentsCount: 12,
                 timeEstimate: 30,
                 points: 13,
@@ -192,23 +133,6 @@ async function createSampleData({ force = false }) {
                 status: 'To Do',
                 client: sarahClient._id,
                 assignee: mike._id,
-                todos: [
-                    {
-                        title: 'Setup Stripe account',
-                        isCompleted: false,
-                        assignee: mike._id
-                    },
-                    {
-                        title: 'Implement payment endpoints',
-                        isCompleted: false,
-                        assignee: mike._id
-                    },
-                    {
-                        title: 'Add webhook handlers',
-                        isCompleted: false,
-                        assignee: mike._id
-                    }
-                ],
                 commentsCount: 5,
                 timeEstimate: 25,
                 points: 13,
@@ -221,24 +145,6 @@ async function createSampleData({ force = false }) {
                 client: davidClient._id,
                 assignee: sadik._id,
                 collaborators: [mike._id],
-                todos: [
-                    {
-                        title: 'Analyze slow queries',
-                        isCompleted: true,
-                        assignee: sadik._id,
-                        completedAt: new Date('2024-11-01')
-                    },
-                    {
-                        title: 'Add necessary indexes',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    },
-                    {
-                        title: 'Implement caching',
-                        isCompleted: false,
-                        assignee: mike._id
-                    }
-                ],
                 commentsCount: 7,
                 timeEstimate: 15,
                 points: 8,
@@ -251,23 +157,6 @@ async function createSampleData({ force = false }) {
                 client: johnClient._id,
                 assignee: alice._id,
                 collaborators: [sadik._id, mike._id],
-                todos: [
-                    {
-                        title: 'Design dashboard layout',
-                        isCompleted: false,
-                        assignee: alice._id
-                    },
-                    {
-                        title: 'Create chart components',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    },
-                    {
-                        title: 'Implement real-time updates',
-                        isCompleted: false,
-                        assignee: mike._id
-                    }
-                ],
                 commentsCount: 3,
                 timeEstimate: 35,
                 points: 21,
@@ -279,25 +168,6 @@ async function createSampleData({ force = false }) {
                 status: 'Under Review',
                 client: sarahClient._id,
                 assignee: mike._id,
-                todos: [
-                    {
-                        title: 'Document endpoints',
-                        isCompleted: true,
-                        assignee: mike._id,
-                        completedAt: new Date('2024-11-02')
-                    },
-                    {
-                        title: 'Add code examples',
-                        isCompleted: true,
-                        assignee: mike._id,
-                        completedAt: new Date('2024-11-04')
-                    },
-                    {
-                        title: 'Review documentation',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    }
-                ],
                 commentsCount: 6,
                 timeEstimate: 20,
                 points: 13,
@@ -310,23 +180,6 @@ async function createSampleData({ force = false }) {
                 client: davidClient._id,
                 assignee: sadik._id,
                 collaborators: [mike._id, emma._id],
-                todos: [
-                    {
-                        title: 'Review authentication system',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    },
-                    {
-                        title: 'Analyze API security',
-                        isCompleted: false,
-                        assignee: mike._id
-                    },
-                    {
-                        title: 'Test for vulnerabilities',
-                        isCompleted: false,
-                        assignee: emma._id
-                    }
-                ],
                 commentsCount: 4,
                 timeEstimate: 30,
                 points: 21,
@@ -339,24 +192,6 @@ async function createSampleData({ force = false }) {
                 client: johnClient._id,
                 assignee: alice._id,
                 collaborators: [sadik._id],
-                todos: [
-                    {
-                        title: 'Design email templates',
-                        isCompleted: true,
-                        assignee: alice._id,
-                        completedAt: new Date('2024-11-01')
-                    },
-                    {
-                        title: 'Implement template engine',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    },
-                    {
-                        title: 'Add customization options',
-                        isCompleted: false,
-                        assignee: sadik._id
-                    }
-                ],
                 commentsCount: 9,
                 timeEstimate: 25,
                 points: 13,
@@ -369,30 +204,130 @@ async function createSampleData({ force = false }) {
                 client: sarahClient._id,
                 assignee: alice._id,
                 collaborators: [sadik._id, emma._id],
-                todos: [
-                    {
-                        title: 'Design onboarding screens',
-                        isCompleted: true,
-                        assignee: alice._id,
-                        completedAt: new Date('2024-10-15')
-                    },
-                    {
-                        title: 'Implement frontend flow',
-                        isCompleted: true,
-                        assignee: sadik._id,
-                        completedAt: new Date('2024-10-20')
-                    },
-                    {
-                        title: 'User testing',
-                        isCompleted: true,
-                        assignee: emma._id,
-                        completedAt: new Date('2024-10-25')
-                    }
-                ],
                 commentsCount: 18,
                 timeEstimate: 40,
                 points: 21,
                 dueDate: new Date('2024-10-30')
+            },
+            {
+                title: "E-commerce Homepage Redesign",
+                description: "Redesign the main homepage to improve conversion rates",
+                status: "Doing",
+                client: users[0]._id,
+                assignee: users[1]._id,
+                collaborators: [users[2]._id],
+                commentsCount: 8,
+                timeEstimate: 20,
+                points: 13,
+                dueDate: new Date("2024-11-20"),
+            },
+            {
+                title: "Mobile App Prototype",
+                description: "Create an interactive prototype for the new mobile app",
+                status: "To Do",
+                client: users[4]._id,
+                assignee: users[6]._id,
+                collaborators: [users[3]._id, users[5]._id],
+                commentsCount: 5,
+                timeEstimate: 30,
+                points: 20,
+                dueDate: new Date("2024-12-10"),
+            },
+            {
+                title: "API Development for Inventory",
+                description: "Develop a REST API to manage the inventory data",
+                status: "Under Review",
+                client: users[0]._id,
+                assignee: users[2]._id,
+                collaborators: [users[5]._id],
+                commentsCount: 3,
+                timeEstimate: 25,
+                points: 18,
+                dueDate: new Date("2024-11-30"),
+            },
+            {
+                title: "Sales Report Automation",
+                description: "Automate weekly sales reporting using a script",
+                status: "Completed",
+                client: users[4]._id,
+                assignee: users[5]._id,
+                collaborators: [users[7]._id],
+                commentsCount: 6,
+                timeEstimate: 15,
+                points: 10,
+                dueDate: new Date("2024-11-15"),
+            },
+            {
+                title: "Onboarding Email Campaign",
+                description: "Set up an onboarding email campaign for new users",
+                status: "Doing",
+                client: users[1]._id,
+                assignee: users[3]._id,
+                collaborators: [users[5]._id, users[6]._id],
+                commentsCount: 12,
+                timeEstimate: 10,
+                points: 5,
+                dueDate: new Date("2024-11-22"),
+            },
+            {
+                title: "Dashboard Analytics Module",
+                description: "Develop the analytics module for the admin dashboard",
+                status: "To Do",
+                client: users[0]._id,
+                assignee: users[5]._id,
+                collaborators: [users[2]._id, users[3]._id],
+                commentsCount: 4,
+                timeEstimate: 35,
+                points: 25,
+                dueDate: new Date("2024-12-01"),
+            },
+            {
+                title: "SEO Optimization for Landing Page",
+                description: "Improve SEO for the main landing page to increase traffic",
+                status: "Incomplete",
+                client: users[4]._id,
+                assignee: users[1]._id,
+                collaborators: [users[5]._id],
+                commentsCount: 2,
+                timeEstimate: 5,
+                points: 3,
+                dueDate: new Date("2024-11-25"),
+            },
+            {
+                title: "Website Security Audit",
+                description: "Conduct a security audit for potential vulnerabilities",
+                status: "Doing",
+                client: users[5]._id,
+                assignee: users[2]._id,
+                collaborators: [users[0]._id, users[5]._id],
+                commentsCount: 9,
+                timeEstimate: 18,
+                points: 12,
+                dueDate: new Date("2024-11-28"),
+            },
+            {
+                title: "Create Brand Guidelines",
+                description: "Develop brand guidelines for consistent design",
+                status: "Under Review",
+                client: users[1]._id,
+                assignee: users[6]._id,
+                collaborators: [users[3]._id],
+                commentsCount: 7,
+                timeEstimate: 22,
+                points: 15,
+                dueDate: new Date("2024-12-05"),
+            },
+            {
+                title: "Customer Feedback Analysis",
+                description: "Analyze customer feedback to find areas of improvement",
+                status: "Completed",
+                client: users[4]._id,
+                assignee: users[5]._id,
+                collaborators: [users[6]._id],
+                commentsCount: 10,
+                timeEstimate: 12,
+                points: 8,
+                dueDate: new Date("2024-11-18"),
             }
         ])
 
