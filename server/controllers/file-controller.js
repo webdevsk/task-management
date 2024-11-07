@@ -9,7 +9,6 @@ exports.uploadFiles = async (req, res) => {
         // const uploadedBy = req.body.uploadedBy // This should come from authenticated user session
         // Find the task
         const task = await Task.findById(taskId)
-        console.log(task)
         if (!task) {
             // Delete uploaded files if task doesn't exist
             await Promise.all(req.files.map(file =>
@@ -52,14 +51,15 @@ exports.uploadFiles = async (req, res) => {
 exports.getFile = async (req, res) => {
     try {
         const filename = req.params.filename
-        const filepath = path.join(__dirname, 'uploads', filename)
-
+        const filepath = path.join(__dirname, '../uploads', filename)
+        console.log(filepath)
         // Check if file exists
         await fs.access(filepath)
 
         // Send file
         res.sendFile(filepath)
     } catch (error) {
+        console.error(error)
         res.status(404).json({ error: 'File not found' })
     }
 }
@@ -81,7 +81,7 @@ exports.deleteFile = async (req, res) => {
         }
 
         // Remove file from filesystem
-        const filepath = path.join(__dirname, 'uploads', filename)
+        const filepath = path.join(__dirname, '../uploads', filename)
         await fs.unlink(filepath)
 
         // Remove file from task

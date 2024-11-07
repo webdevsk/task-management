@@ -1,5 +1,5 @@
 import { allowedTypes } from "@/data/data"
-import { postAttachments } from "@/server/api"
+import { postFiles } from "@/server/api"
 import { memo } from "react"
 import { FaUpload } from "react-icons/fa6"
 import { toast } from "sonner"
@@ -19,7 +19,7 @@ const UploadFiles = memo(({ id }) => {
       formData.append("files", file) // Adjust 'files' to match your backend API's expected parameter name
     }
 
-    toast.promise(() => postAttachments(id, formData), {
+    toast.promise(() => postFiles(id, formData), {
       loading: "Uploading files...",
       success: data => {
         mutate("/api/tasks")
@@ -46,14 +46,10 @@ const UploadFiles = memo(({ id }) => {
       />
       <label
         htmlFor="file-upload"
-        className={`relative cursor-pointer gap-2 transition-colors peer-disabled:opacity-50 mt-auto hover:contrast-75 rounded-md px-2 py-2  bg-muted inline-flex justify-center items-center`}
+        className={`relative cursor-pointer mb-2 gap-2 transition-colors peer-disabled:opacity-50 mt-auto hover:contrast-75 rounded-md px-2 py-2  bg-secondary inline-flex justify-center items-center`}
       >
         <FaUpload />
-        <span>Upload Attachments</span>
-        {/* <span className="text-red-400 text-xs">
-          Allowed file types:{" "}
-          {allowedTypes.map(type => type.split(".").at(-1)).join(", ")}
-        </span> */}
+        <span>Upload Files</span>
       </label>
     </>
   )
