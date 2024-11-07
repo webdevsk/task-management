@@ -17,30 +17,32 @@ const configure = (proxy, _options) => {
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), jsConfigPaths()],
-  server: {
-    proxy: {
-      // Basic proxy configuration
-      '/api': {
-        target: "http://localhost:3000", // Your backend server URL
-        changeOrigin: true,
-        secure: false,
-        // Optionally remove /api prefix when forwarding to the backend
-        // rewrite: (path) => path.replace(/^\/api/, '')
-        configure,
+  // server: {
+  //   proxy: {
+  //     // Basic proxy configuration
+  //     '/api': {
+  //       target: "http://localhost:3000", // Your backend server URL
+  //       changeOrigin: true,
+  //       secure: false,
+  //       // Optionally remove /api prefix when forwarding to the backend
+  //       rewrite: (path) => path.replace(/^\/api/, ''),
+  //       configure,
 
-      },
-    }
-  },
-  build: {
-    proxy: {
-      // Basic proxy configuration
-      '/api': {
-        target: "https://task-management-bp2j.onrender.com", // Your backend server URL
-        changeOrigin: true,
-        secure: true,
-        configure,
+  //     },
+  //   }
+  // },
+  // build: {
+  //   proxy: {
+  //     // Basic proxy configuration
+  //     '/api': {
+  //       target: "https://task-management-bp2j.onrender.com", // Your backend server URL
+  //       changeOrigin: true,
+  //       secure: false,
+  //       rewrite: (path) => path.replace(/^\/api/, ''),
 
-      },
-    }
-  }
+  //       configure,
+
+  //     },
+  //   }
+  // }
 })

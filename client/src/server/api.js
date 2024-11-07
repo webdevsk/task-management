@@ -1,13 +1,14 @@
-
+const API_URL = import.meta.env.VITE_API_URL
+console.log(API_URL)
 export async function getAllTasks() {
-    const res = await fetch("/api/tasks")
+    const res = await fetch(API_URL + "/api/tasks")
     const result = await res.json()
     if (res.status == 200) return result
     throw Error(result.message)
 }
 
 export async function postFiles(id, formData) {
-    const res = await fetch(`/api/tasks/${id}/files`, {
+    const res = await fetch(API_URL + `/api/tasks/${id}/files`, {
         method: "POST",
         body: formData,
     })
@@ -17,7 +18,7 @@ export async function postFiles(id, formData) {
 }
 
 export async function getFile(fileName, originalName) {
-    fetch(`/api/files/${fileName}`)
+    fetch(API_URL + `/api/files/${fileName}`)
         .then(res => res.blob())
         .then(blob => {
             const url = window.URL.createObjectURL(blob)
