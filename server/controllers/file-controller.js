@@ -1,11 +1,15 @@
+const { Task } = require('../models/db-schema')
+
+const fs = require('fs').promises
+const path = require('path')
 
 exports.uploadFiles = async (req, res) => {
     try {
         const taskId = req.params.taskId
-        const uploadedBy = req.body.uploadedBy // This should come from authenticated user session
-
+        // const uploadedBy = req.body.uploadedBy // This should come from authenticated user session
         // Find the task
         const task = await Task.findById(taskId)
+        console.log(task)
         if (!task) {
             // Delete uploaded files if task doesn't exist
             await Promise.all(req.files.map(file =>
@@ -21,7 +25,7 @@ exports.uploadFiles = async (req, res) => {
             path: file.path,
             mimetype: file.mimetype,
             size: file.size,
-            uploadedBy: uploadedBy,
+            // uploadedBy: uploadedBy,
             uploadedAt: new Date()
         }))
 
@@ -34,6 +38,7 @@ exports.uploadFiles = async (req, res) => {
             files: fileDocuments
         })
     } catch (error) {
+        console.error(error)
         // Delete uploaded files if there's an error
         if (req.files) {
             await Promise.all(req.files.map(file =>

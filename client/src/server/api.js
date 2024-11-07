@@ -6,9 +6,9 @@ export async function getAllTasks() {
 }
 
 export async function postAttachments(id, formData) {
-    const res = await fetch(`/api/${id}/files`, {
+    const res = await fetch(`/api/tasks/${id}/files`, {
         method: "POST",
-        body: formData
+        body: formData,
     })
     const result = await res.json()
     if (res.status == 200) return result

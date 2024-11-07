@@ -6,6 +6,7 @@ exports.getAllTasks = async (req, res) => {
             .populate('client', 'name imageUrl')
             .populate('assignee', 'name imageUrl')
             .populate('collaborators', 'name imageUrl')
+            .populate('files')
             .sort({ createdAt: -1 })
         res.json(tasks)
     } catch (error) {
@@ -19,6 +20,7 @@ exports.getTasksByStatus = async (req, res) => {
             .populate('client', 'name imageUrl')
             .populate('assignee', 'name imageUrl')
             .populate('collaborators', 'name imageUrl')
+            .populate('files')
         res.json(tasks)
     } catch (error) {
         res.status(500).json({ error: 'Error fetching tasks' })
@@ -31,6 +33,7 @@ exports.getTasksById = async (req, res) => {
             .populate('client', 'name imageUrl')
             .populate('assignee', 'name imageUrl')
             .populate('collaborators', 'name imageUrl')
+            .populate('files')
         if (!task) {
             return res.status(404).json({ error: 'Task not found' })
         }

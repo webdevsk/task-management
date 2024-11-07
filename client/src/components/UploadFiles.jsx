@@ -1,32 +1,26 @@
 import { allowedTypes, fileSizeLimit } from "@/data/data"
-import { memo } from "react"
+import { postAttachments } from "@/server/api"
+import { memo, useState } from "react"
 import { FaUpload } from "react-icons/fa6"
 import { HiPhoto } from "react-icons/hi2"
-import { useSWRConfig } from "swr"
+import useSWR, { useSWRConfig } from "swr"
 
-const UploadFiles = memo(({ className, setImageFiles }) => {
+const UploadFiles = memo(({ id }) => {
   const mutate = useSWRConfig()
 
-  const handleChange = ({ currentTarget: t }) => {
-    if (!t.files.length) return
+  const handleFileChange = event => {
+    // setFiles(event.target.files)
+    uploadFiles(event.target.files)
+  }
 
-    const [file] = t.files
-    if (!allowedTypes.includes(file.type)) {
-      alert("Allowed file types: " + allowedTypes.join(", "))
-      return
+  const uploadFiles = async fileList => {
+    const formData = new FormData()
+    for (const file of fileList) {
+      formData.append("files", file) // Adjust 'files' to match your backend API's expected parameter name
     }
-
-    if (file.size > fileSizeLimit) {
-      alert(`Max file size limit: ${fileSizeLimit / 1024 / 1024} MB`)
-      return
-    }
-
-    const reader = new FileReader()
-    reader.onloadstart = () => (t.disabled = true)
-    reader.onload = () => {}
-    reader.onloadend = () => (t.disabled = false)
-    reader.onerror = () => alert(reader.error)
-    reader.readAsDataURL(file)
+    console.log(formData)
+    const res = await postAttachments(id, formData)
+    console.log(res)
   }
 
   return (
@@ -36,8 +30,9 @@ const UploadFiles = memo(({ className, setImageFiles }) => {
         type="file"
         id="file-upload"
         name="file-upload"
-        onChange={handleChange}
+        onChange={handleFileChange}
         accept={allowedTypes.join(",")}
+        multiple="multiple"
         className="peer"
       />
       <label

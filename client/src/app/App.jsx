@@ -142,7 +142,7 @@ function App() {
                   </h4>
                 </div>
               ))}
-            <UploadFiles />
+            <UploadFiles id={activeTask?.id} />
           </div>
         </DialogContent>
       </Dialog>
@@ -223,7 +223,7 @@ function TaskCard({ task, setActiveTask }) {
           className="hover:bg-muted rounded-md p-1 inline-flex items-center gap-1 text-sm font-medium"
         >
           <FaPaperclip className="text-base shrink-0" />
-          <span>{task.attachments.length}</span>
+          <span>{task.files.length}</span>
         </button>
 
         {/* due date */}

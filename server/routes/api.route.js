@@ -3,6 +3,7 @@ const express = require("express")
 const upload = require("../config/multer")
 const { uploadFiles, getFile, deleteFile } = require("../controllers/file-controller")
 const { getAllTasks, getTasksByStatus, getTasksById, createNewTask, updateTask, deleteTask } = require("../controllers/task-controller")
+const multer = require("multer")
 
 const apiRouter = express.Router()
 
