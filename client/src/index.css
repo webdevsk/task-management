@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-  font-family: "Inter";
-  src: local("InterVariable"),
-    url("./assets/fonts/InterVariable.ttf") format("ttf");
-}
-
 /* ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -25,7 +19,7 @@
 } */
 
 body {
-  font-family: Inter, Arial, Helvetica, sans-serif;
+  font-family: "Inter Variable", Arial, Helvetica, sans-serif;
 }
 #main-container [data-radix-scroll-area-content] {
   /* Removes vertical scrolling of taskgroup container */
