@@ -6,13 +6,34 @@ import {
   FaClipboardList,
   FaPaperclip,
   FaRegCalendarDays,
-  FaRegComments
+  FaRegComments,
+  FaUpload
 } from "react-icons/fa6"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog"
+import useSWR from "swr"
+import UploadFiles from "@/components/UploadFiles"
 
 function App() {
-  const [status, setStatus] = useState("Pending")
-  const [taskList, setTaskList] = useState([])
-  const [error, setError] = useState(null)
+  const [activeTask, setActiveTask] = useState(null)
+  const {
+    data: taskList = [],
+    error,
+    isLoading
+  } = useSWR("/api/tasks", getAllTasks, {
+    refreshWhenHidden: false,
+    refreshWhenOffline: false,
+    revalidateOnFocus: false
+  })
+
+  console.log(taskList, error, isLoading)
 
   const taskGroups = useMemo(
     () => Object.groupBy(taskList, ({ status }) => status),
@@ -25,33 +46,8 @@ function App() {
     "Under Review",
     "Completed"
   ]
-  console.log(taskGroups)
 
-  useEffect(() => {
-    getAllTasks()
-      .then(res => {
-        console.log(res)
-        setStatus(res.status)
-        setTaskList(res.data)
-      })
-      .catch(err => {
-        console.error(err)
-        setStatus(err.status)
-        setError(err.message)
-      })
-  }, [])
-  if (error) {
-    return (
-      <main>
-        <section>
-          <div className="text-2xl py-12 container text-center text-red-500">
-            <h1>Failed to fetch data from api</h1>
-          </div>
-        </section>
-      </main>
-    )
-  }
-  if (status == "Pending") {
+  if (isLoading) {
     return (
       <main>
         <section>
@@ -63,12 +59,25 @@ function App() {
     )
   }
 
+  if (error) {
+    console.error(error)
+    return (
+      <main>
+        <section>
+          <div className="text-2xl py-12 container text-center text-red-500">
+            <h1>Failed to fetch data from api</h1>
+          </div>
+        </section>
+      </main>
+    )
+  }
+
   return (
     <main className="">
       <section className="p-4 h-dvh">
         <div className="container">
           <ScrollMenu>
-            <div className="flex gap-4 flex-nowrap *:shrink-0">
+            <div className="flex gap-4 flex-nowrap items-stretch *:shrink-0">
               {taskGroupEnums.map(taskGroup => (
                 <div
                   key={taskGroup}
@@ -95,6 +104,8 @@ function App() {
                       <TaskCard
                         key={task.id}
                         task={task}
+                        activeTask={activeTask}
+                        setActiveTask={setActiveTask}
                       />
                     ))}
                   </ul>
@@ -104,46 +115,43 @@ function App() {
           </ScrollMenu>
         </div>
       </section>
+
+      {/* Dialog */}
+      <Dialog
+        open={!!activeTask}
+        onOpenChange={bool => setActiveTask(task => (bool ? task : null))}
+      >
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Attachments</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col gap-1">
+            {activeTask?.attachments.length || (
+              <p className="text-center text-xl p-4 text-gray-600">
+                No attchments
+              </p>
+            )}
+            {!!activeTask?.attachments.length &&
+              activeTask.attachments.map(file => (
+                <div
+                  key={file.fileName}
+                  className="rounded-md bg-muted flex gap-2 px-2 py-2"
+                >
+                  <h4 className="truncate shrink-1 text-base">
+                    {file.originalName}
+                  </h4>
+                </div>
+              ))}
+            <UploadFiles />
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   )
 }
 export default App
 
-// {
-//   "_id": "672b6c58a4e5c533cbaf7af0",
-//   "title": "User Authentication System",
-//   "description": "Implement secure user authentication with OAuth2",
-//   "status": "Completed",
-//   "client": {
-//       "_id": "672b6c57a4e5c533cbaf7ae2",
-//       "name": "Sarah Martinez",
-//       "imageUrl": null
-//   },
-//   "assignee": {
-//       "_id": "672b6c57a4e5c533cbaf7ae4",
-//       "name": "Sadik Istiak",
-//       "imageUrl": null
-//   },
-//   "collaborators": [
-//       {
-//           "_id": "672b6c57a4e5c533cbaf7ae6",
-//           "name": "Mike Johnson",
-//           "imageUrl": null
-//       }
-//   ],
-//   "commentsCount": 15,
-//   "timeEstimate": 40,
-//   "points": 21,
-//   "dueDate": "2024-10-30T00:00:00.000Z",
-//   "tags": [],
-//   "priority": "Medium",
-//   "createdAt": "2024-11-06T13:17:12.755Z",
-//   "attachments": [],
-//   "files": [],
-//   "__v": 0
-// }
-
-function TaskCard({ task }) {
+function TaskCard({ task, setActiveTask }) {
   return (
     <div className="w-full bg-background rounded-md">
       <div className="flex p-2 items-center gap-2 *:flex-initial justify-between text-xs font-bold *:truncate">
@@ -210,7 +218,10 @@ function TaskCard({ task }) {
         </button>
 
         {/* attachments */}
-        <button className="hover:bg-muted rounded-md p-1 inline-flex items-center gap-1 text-sm font-medium">
+        <button
+          onClick={() => setActiveTask(task)}
+          className="hover:bg-muted rounded-md p-1 inline-flex items-center gap-1 text-sm font-medium"
+        >
           <FaPaperclip className="text-base shrink-0" />
           <span>{task.attachments.length}</span>
         </button>

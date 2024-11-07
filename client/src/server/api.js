@@ -1,17 +1,16 @@
-
-
 export async function getAllTasks() {
-    try {
-        const result = await fetch("/api/tasks").then(res => res.json())
-        return {
-            status: "success",
-            data: result
-        }
-    } catch (error) {
-        console.error(error)
-        return {
-            status: "failed",
-            error: error?.message
-        }
-    }
+    const res = await fetch("/api/tasks")
+    const result = await res.json()
+    if (res.status == 200) return result
+    throw Error(result.message)
+}
+
+export async function postAttachments(id, formData) {
+    const res = await fetch(`/api/${id}/files`, {
+        method: "POST",
+        body: formData
+    })
+    const result = await res.json()
+    if (res.status == 200) return result
+    throw Error(result.message)
 }
