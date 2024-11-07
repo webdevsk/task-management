@@ -74,6 +74,7 @@ export function TaskCard({ task, setActiveTaskId }) {
 
         {/* Files */}
         <button
+          title="View Files"
           onClick={() => setActiveTaskId(task.id)}
           className="hover:bg-muted rounded-md p-1 inline-flex items-center gap-1 text-sm font-medium"
         >

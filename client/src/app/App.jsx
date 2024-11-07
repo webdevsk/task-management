@@ -64,7 +64,8 @@ function App() {
           <div className="container">
             <ScrollArea
               type="auto"
-              className="size-full whitespace-nowrap "
+              id="main-container"
+              className="size-full whitespace-nowrap pb-4"
             >
               <div className="flex space-x-4 h-full items-stretch *:shrink-0">
                 {taskGroupEnums.map(taskGroup => (
@@ -79,24 +80,26 @@ function App() {
                         completed: "green"
                       }[taskGroup.toLowerCase()]
                     }}
-                    className="w-[350px] bg-card text-card-foreground shadow"
+                    className="w-[350px] grid grid-rows-[max-content,_minmax(0,_1fr)] bg-card text-card-foreground shadow"
                   >
                     <div className="flex items-center gap-2 px-3 py-4">
                       <div className="size-6 rounded-l-full bg-[var(--accent)]"></div>
                       <h5 className="text-lg">{taskGroup}</h5>
                       <h5 className="min-w-8 grid place-items-center rounded-md aspect-square ms-auto">
-                        0
+                        {taskGroups[taskGroup].length}
                       </h5>
                     </div>
-                    <ul className="flex flex-col pb-2 overflow-y-auto gap-3 px-2">
-                      {taskGroups[taskGroup].map(task => (
-                        <TaskCard
-                          key={task.id}
-                          task={task}
-                          setActiveTaskId={setActiveTaskId}
-                        />
-                      ))}
-                    </ul>
+                    <ScrollArea>
+                      <ul className="pb-2 space-y-3 px-2">
+                        {taskGroups[taskGroup].map(task => (
+                          <TaskCard
+                            key={task.id}
+                            task={task}
+                            setActiveTaskId={setActiveTaskId}
+                          />
+                        ))}
+                      </ul>
+                    </ScrollArea>
                   </div>
                 ))}
               </div>

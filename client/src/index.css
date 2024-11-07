@@ -27,6 +27,10 @@
 body {
   font-family: Inter, Arial, Helvetica, sans-serif;
 }
+#main-container [data-radix-scroll-area-content] {
+  /* Removes vertical scrolling of taskgroup container */
+  height: 100%;
+}
 
 @layer utilities {
   .text-balance {
