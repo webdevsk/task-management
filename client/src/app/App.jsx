@@ -85,7 +85,7 @@ function App() {
                         0
                       </h5>
                     </div>
-                    <ul className="flex flex-col h-full pb-2 overflow-y-scroll gap-3 px-2">
+                    <ul className="flex flex-col h-full pb-2 overflow-y-auto gap-3 px-2">
                       {taskGroups[taskGroup].map(task => (
                         <TaskCard
                           key={task.id}
